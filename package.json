@@ -1,0 +1,27 @@
+{
+  "name": "co2mon",
+  "version": "0.1.0",
+  "scripts": {
+    "format": "prettier --write src",
+    "test": "jest",
+    "build": "tsc"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/d521bb85/co2mon.git"
+  },
+  "author": "Vladimir Ivanenko <d521bb85@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/d521bb85/co2mon/issues"
+  },
+  "homepage": "https://github.com/d521bb85/co2mon#readme",
+  "devDependencies": {
+    "@types/jest": "^27.0.2",
+    "husky": "^7.0.4",
+    "lint-staged": "^11.2.3",
+    "prettier": "^2.4.1",
+    "ts-jest": "^27.0.7",
+    "typescript": "^4.4.4"
+  }
+}
