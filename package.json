@@ -4,6 +4,7 @@
   "scripts": {
     "format": "prettier --write src",
     "test": "jest",
+    "test:watch": "jest --watch",
     "e2e": "jest --config jest.e2e-config.js",
     "build": "tsc",
     "prepare": "husky install"
