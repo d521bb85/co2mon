@@ -7,15 +7,15 @@ const BYTES_TO_SWAP = [
 
 const MAGIC_WORD = Buffer.from('Htemp99e');
 
-export enum MessageType {
+export enum FrameType {
   TEMPERATURE = 0x42,
   CO2 = 0x50
 }
 
 export function decode(
-  input: Buffer | number[]
-): [MessageType, number] | undefined {
-  const buffer = Buffer.from(input);
+  frame: Buffer | number[]
+): [FrameType, number] | undefined {
+  const buffer = Buffer.from(frame);
 
   for (const [a, b] of BYTES_TO_SWAP) {
     [buffer[a], buffer[b]] = [buffer[b], buffer[a]];
@@ -33,22 +33,18 @@ export function decode(
     buffer[index] -= (MAGIC_WORD[index] << 4) | (MAGIC_WORD[index] >> 4);
   }
 
-  if (buffer[3] !== buffer[0] + buffer[1] + buffer[2]) {
-    return undefined;
-  }
-
   const key = buffer[0];
-  const value = buffer[1] * 256 + buffer[2];
+  const value = (buffer[1] << 8) + buffer[2];
 
   switch (key) {
     default:
       return undefined;
 
-    case MessageType.CO2:
-      return [MessageType.CO2, value];
+    case FrameType.CO2:
+      return [FrameType.CO2, value];
 
-    case MessageType.TEMPERATURE:
-      return [MessageType.TEMPERATURE, convertTemperature(value)];
+    case FrameType.TEMPERATURE:
+      return [FrameType.TEMPERATURE, convertTemperature(value)];
   }
 }
 
