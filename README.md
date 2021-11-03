@@ -39,3 +39,27 @@ function viaEvent() {
   });
 }
 ```
+
+### Read Temperature
+
+```javascript
+const { connect } = require('co2mon');
+
+async function usingPromise() {
+  const { getTemperature, disconnect } = connect();
+
+  const temperature = await getTemperature();
+  console.log(temperature);
+
+  disconnect();
+}
+
+function viaEvent() {
+  const { emitter, disconnect } = connect();
+
+  emitter.once('temperature', (temperature) => {
+    console.log(temperature);
+    disconnect();
+  });
+}
+```
